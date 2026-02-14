@@ -1,17 +1,10 @@
 // Frontend/src/auth/firebase.ts
 
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import {
-  initializeAuth,
-  getReactNativePersistence
-} from 'firebase/auth';
-
-import ReactNativeAsyncStorage
-  from '@react-native-async-storage/async-storage';
+import { getAuth } from 'firebase/auth';
 
 /**
  * Firebase configuration
- * EXPO_PUBLIC_ prefix is REQUIRED for Expo
  */
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY!,
@@ -21,7 +14,7 @@ const firebaseConfig = {
 };
 
 /**
- * Prevent multiple app initialization (important for Fast Refresh)
+ * Prevent multiple initialization (Fast Refresh safe)
  */
 const app =
   getApps().length === 0
@@ -29,9 +22,7 @@ const app =
     : getApp();
 
 /**
- * ✅ Correct Auth initialization for React Native
- * This enables persistent login sessions.
+ * Firebase Auth
+ * Works on Web + Android + iOS automatically in Expo.
  */
-export const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
-});
+export const auth = getAuth(app);
