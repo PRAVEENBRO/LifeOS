@@ -1,15 +1,17 @@
 services:
   api:
-    build: .
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: node_api
     ports:
       - "3000:3000"
     env_file:
-      - .env.docker
+      - ./backend/.env.docker
     depends_on:
       - postgres
     volumes:
-      - .:/app
+      - ./backend:/app
       - /app/node_modules
     command: sh -c "npx prisma generate && npm run dev"
 
