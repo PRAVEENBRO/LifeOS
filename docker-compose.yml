@@ -2,7 +2,6 @@ services:
   api:
     build:
       context: ./backend
-      dockerfile: Dockerfile
     container_name: node_api
     ports:
       - "3000:3000"
@@ -10,10 +9,6 @@ services:
       - ./backend/.env.docker
     depends_on:
       - postgres
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
-    command: sh -c "npx prisma generate && npm run dev"
 
   postgres:
     image: postgres:15
@@ -22,8 +17,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: docker_crud
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
