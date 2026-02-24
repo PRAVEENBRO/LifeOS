@@ -1,15 +1,19 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { YStack, Text } from 'tamagui'
+import { AppButton } from '../../src/components/AppButton'
+import { AppCard } from '@/src/components/AppCard'
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
-    </View>
-  );
+    <YStack flex={1} backgroundColor="$background" padding="$lg" gap="$md">
+      <AppCard>
+        <Text fontSize={20} fontWeight="600">
+          Welcome
+        </Text>
+      </AppCard>
+      <AppButton
+        title="Click Me"
+        onPress={() => console.log('Pressed')}
+      />
+    </YStack>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold' },
-});
