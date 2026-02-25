@@ -1,3 +1,4 @@
+import { configEnv } from './src/shared/index';
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
@@ -7,6 +8,6 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env.DATABASE_URL,
+    url: configEnv.postgress ?? '' ,
   },
 });

@@ -1,6 +1,7 @@
 import app from "./app";
+import { configEnv } from "./shared";
 
-const port = 3000;
+const port = configEnv.port || 3000;
 
 const startServer = () => {
   
