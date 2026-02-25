@@ -4,6 +4,7 @@ import {
     PrismaClientValidationError,
   } from "@prisma/client/runtime/library";
 import { AppError } from "../errors/appError";
+import { configEnv } from "../shared";
 
 export const errorHandler = (
   err: any,
@@ -41,7 +42,7 @@ export const errorHandler = (
   /**
    * Log errors (keep simple for now)
    */
-  if (process.env.NODE_ENV !== "production") {
+  if (configEnv.node_env !== "production") {
     console.error("❌ ERROR:", err);
   }
 
