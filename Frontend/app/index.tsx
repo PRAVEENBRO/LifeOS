@@ -1,26 +1,30 @@
 import { Redirect } from "expo-router";
 import { useEffect, useState } from "react";
+import { checkBackendHealth } from "@/src/core/api/health.api";
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Example: backend health check
-    fetch(`${process.env.EXPO_PUBLIC_API_URL}/health`)
-      .then((res) => res.json())
+    checkBackendHealth()
       .then((data) => {
         console.log("HEALTH:", data);
-        setIsAuthenticated(false);
       })
-      .catch(console.error)
-      .finally(() => setIsLoading(false));
+      .catch((error) => {
+        // Keep app usable even if backend is temporarily unreachable.
+        console.warn("HEALTH_CHECK_FAILED", error);
+      })
+      .finally(() => {
+        setIsAuthenticated(false);
+        setIsLoading(false);
+      });
   }, []);
 
   if (isLoading) return null;
 
   return isAuthenticated ? (
-    <Redirect href="/(tabs)/home" />
+    <Redirect href="/home" />
   ) : (
     <Redirect href="/(auth)/login" />
   );

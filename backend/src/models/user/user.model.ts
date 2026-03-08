@@ -18,6 +18,12 @@ export const findUserById = async (id: string) => {
   });
 };
 
+export const findUserByFirebaseUid = async (firebaseUid: string) => {
+  return prisma.user.findFirst({
+    where: { firebaseUid },
+  });
+};
+
 /**
  * Create user
  */

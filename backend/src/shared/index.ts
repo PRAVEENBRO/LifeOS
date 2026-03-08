@@ -6,6 +6,9 @@ export const configEnv = {
   node_env: process.env.NODE_ENV || "development",
   port: parseInt(process.env.PORT || "3000", 10),
   postgress: process.env.DATABASE_URL,
+  firebase: {
+    projectId: process.env.FIREBASE_PROJECT_ID || "",
+  },
   jwt: {
     secret:
       process.env.JWT_SECRET ||
